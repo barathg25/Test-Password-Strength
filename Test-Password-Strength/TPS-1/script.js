@@ -1,6 +1,7 @@
 const passwordInput = document.getElementById('password');
-const strengthMeter = document.querySelector('.strength');
+const levelBar = document.querySelector('.level');
 const strengthValue = document.getElementById('strength-value');
+const toggleButton = document.getElementById('toggleButton');
 
 passwordInput.addEventListener('input', () => {
     const password = passwordInput.value;
@@ -23,25 +24,21 @@ function calculatePasswordStrength(password) {
 }
 
 function updateStrengthMeter(strength) {
-    strengthMeter.style.width = (strength * 20) + '%';
-    
-    if (strength === 1) {
-        strengthValue.textContent = 'Very Weak';
-        strengthValue.style.color = 'red';
-    } else if (strength === 2) {
-        strengthValue.textContent = 'Weak';
-        strengthValue.style.color = 'orange';
-    } else if (strength === 3) {
-        strengthValue.textContent = 'Moderate';
-        strengthValue.style.color = 'yellow';
-    } else if (strength === 4) {
-        strengthValue.textContent = 'Strong';
-        strengthValue.style.color = 'green';
-    } else if (strength === 5) {
-        strengthValue.textContent = 'Very Strong';
-        strengthValue.style.color = 'darkgreen';
+    const levels = ['level-1', 'level-2', 'level-3', 'level-4', 'level-5'];
+    const levelWidth = ['20%', '40%', '60%', '80%', '100%'];
+    levelBar.className = 'level ' + levels[strength];
+    levelBar.style.width = levelWidth[strength];
+    const strengthTexts = ['Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
+    strengthValue.textContent = strengthTexts[strength];
+}
+
+function togglePasswordVisibility() {
+    const passwordField = document.getElementById('password');
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleButton.textContent = "Hide Password";
     } else {
-        strengthValue.textContent = 'Too Short';
-        strengthValue.style.color = 'gray';
+        passwordField.type = "password";
+        toggleButton.textContent = "Show Password";
     }
 }

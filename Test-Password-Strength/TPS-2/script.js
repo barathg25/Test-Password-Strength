@@ -1,30 +1,49 @@
-const passwordInput = document.getElementById('password');
-const strengthMeter = document.querySelector('.strength-bar');
-const strengthValue = document.getElementById('strength-value');
+function testPassword() {
+    var password = document.getElementById("password").value;
+    var strengthMeter = document.getElementById("strength");
+    var strength = 0;
 
-passwordInput.addEventListener('input', () => {
-    const password = passwordInput.value;
-    const strength = calculatePasswordStrength(password);
-    updateStrengthMeter(strength);
-});
+    // Check length
+    if (password.length >= 8) {
+        strength += 1;
+    }
 
-function calculatePasswordStrength(password) {
-    let strength = 0;
-    const length = password.length;
-    
-    if (length >= 8) strength += 1;
-    if (length >= 12) strength += 1;
-    if (/[a-z]/.test(password)) strength += 1;
-    if (/[A-Z]/.test(password)) strength += 1;
-    if (/[0-9]/.test(password)) strength += 1;
-    if (/[^A-Za-z0-9]/.test(password)) strength += 1;
-    
-    return strength;
-}
+    // Check if it contains numbers
+    if (/\d/.test(password)) {
+        strength += 1;
+    }
 
-function updateStrengthMeter(strength) {
-    const strengthClasses = ['very-weak', 'weak', 'moderate', 'strong', 'very-strong'];
-    strengthMeter.className = 'strength-bar ' + strengthClasses[strength];
-    const strengthTexts = ['Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
-    strengthValue.textContent = strengthTexts[strength];
+    // Check if it contains uppercase letters
+    if (/[A-Z]/.test(password)) {
+        strength += 1;
+    }
+
+    // Check if it contains special characters
+    if (/[^A-Za-z0-9]/.test(password)) {
+        strength += 1;
+    }
+
+    // Display password strength level
+    switch (strength) {
+        case 0:
+            strengthMeter.style.backgroundColor = "#ff4d4d"; // Red
+            strengthMeter.textContent = "Very Weak";
+            break;
+        case 1:
+            strengthMeter.style.backgroundColor = "#ff944d"; // Orange
+            strengthMeter.textContent = "Weak";
+            break;
+        case 2:
+            strengthMeter.style.backgroundColor = "#ffd24d"; // Yellow
+            strengthMeter.textContent = "Moderate";
+            break;
+        case 3:
+            strengthMeter.style.backgroundColor = "#4dffa6"; // Green
+            strengthMeter.textContent = "Strong";
+            break;
+        case 4:
+            strengthMeter.style.backgroundColor = "#4dffb8"; // Blue
+            strengthMeter.textContent = "Very Strong";
+            break;
+    }
 }

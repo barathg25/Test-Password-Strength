@@ -13,20 +13,52 @@
     font-size: 16px;
 }
 
-#strength-meter {
+.strength-meter {
     width: 100%;
-    height: 10px;
+    height: 20px;
     background-color: #eee;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
-.strength {
+.strength-bar {
     height: 100%;
-    border-radius: 5px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.level {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
 }
 
 #strength-text {
     font-size: 18px;
     font-weight: bold;
+}
+
+#strength-value {
+    font-weight: normal;
+}
+
+.level-1 { background-color: #ff4d4d; }
+.level-2 { background-color: #ff944d; }
+.level-3 { background-color: #ffcc66; }
+.level-4 { background-color: #66cc66; }
+.level-5 { background-color: #66ccff; }
+
+#toggleButton {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
 }
